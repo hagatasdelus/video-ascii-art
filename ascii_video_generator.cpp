@@ -21,7 +21,7 @@ void setCursorPosition(int row, int col) {
 }
 
 int main() {
-    cv::VideoCapture cap("video2.mp4");
+    cv::VideoCapture cap("video5.mp4");
     if (!cap.isOpened()) {
         std::cout << "Error opening video file" << std::endl;
         return -1;
