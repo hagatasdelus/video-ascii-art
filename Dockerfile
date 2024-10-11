@@ -14,6 +14,4 @@ WORKDIR /app
 
 COPY ascii_video_generator.cpp build.sh ./
 
-RUN chmod +x build.sh
-
 CMD ["/bin/bash"]
