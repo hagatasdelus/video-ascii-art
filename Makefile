@@ -3,7 +3,7 @@ TARGET  = $(shell echo $(PROGRAM) | tr "[:upper:]" "[:lower:]")
 INSTDIR = $(PROGRAM).app/Contents/Resources/
 ARCHIVE = $(shell basename `pwd`)
 CXX     = g++
-CXXFLAGS = -std=c++11 $(shell pkg-config --cflags opencv4)
+CXXFLAGS = -std=c++20 $(shell pkg-config --cflags opencv4)
 LIBS    = $(shell pkg-config --libs opencv4) -pthread
 CCTEMPS = *.o *.s *.i *.bc
 REPORTS = StaticAnalyzerReports
