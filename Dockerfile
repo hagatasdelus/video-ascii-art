@@ -5,13 +5,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
-    git \
     libopencv-dev \
     ffmpeg \
+    zip \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY ascii_video_generator.cpp build.sh ./
+COPY AsciiVideoGenerator.cpp MakefileDiver.sh ./
 
 CMD ["/bin/bash"]
