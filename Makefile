@@ -60,20 +60,3 @@ wipe:
 
 format:
 	@for each in $(HEADERS) $(SOURCES) ; do echo "/*** $${each} ***/" ; clang-format -style=file $${each} ; echo ; done
-
-run: $(TARGET)
-	./$(TARGET)
-
-$(SCRIPT):
-	@echo "#!/bin/bash" > $(SCRIPT)
-	@echo "" >> $(SCRIPT)
-	@echo 'case "$$1" in' >> $(SCRIPT)
-	@echo '    "")         make all ;;' >> $(SCRIPT)
-	@echo '    "clean")    make clean ;;' >> $(SCRIPT)
-	@echo '    "run")      make run ;;' >> $(SCRIPT)
-	@echo '    "test")     make test ;;' >> $(SCRIPT)
-	@echo '    "install")  make install ;;' >> $(SCRIPT)
-	@echo '    "open")     make open ;;' >> $(SCRIPT)
-	@echo '    *)          echo "Unknown command: $$1" ; exit 1 ;;' >> $(SCRIPT)
-	@echo 'esac' >> $(SCRIPT)
-	@chmod +x $(SCRIPT)
