@@ -7,7 +7,7 @@ CXXFLAGS = -std=c++20 $(shell pkg-config --cflags opencv4)
 LIBS    = $(shell pkg-config --libs opencv4) -pthread
 CCTEMPS = *.o *.s *.i *.bc
 REPORTS = StaticAnalyzerReports
-# CHECKER = scan-build --use-analyzer=`which $(CXX)` --view -o $(REPORTS)
+CHECKER = scan-build --use-analyzer=`which $(CXX)` --view -o $(REPORTS)
 
 MODULES = \
 	$(PROGRAM)
@@ -17,7 +17,7 @@ OBJECTS = $(shell for each in `echo $(MODULES)` ; do echo $${each}.o ; done)
 
 HEADERS = \
 
-.PHONY: all clean test install zip wipe format #lint
+.PHONY: all clean test install zip wipe lint # format
 
 all: $(TARGET)
 	@:
@@ -47,11 +47,11 @@ install: $(TARGET)
 zip: clean wipe
 	(cd ../ ; zip -r ./$(ARCHIVE).zip ./$(ARCHIVE)/)
 
-# lint: clean
-# 	$(CHECKER) make
+lint: clean
+	$(CHECKER) make
 
 wipe:
 	@if [ -e $(REPORTS) ] ; then echo "rm -f -r $(REPORTS)" ; rm -f -r $(REPORTS) ; fi
 
-format:
-	@for each in $(HEADERS) $(SOURCES) ; do echo "/*** $${each} ***/" ; clang-format -style=file $${each} ; echo ; done
+# format:
+# 	@for each in $(HEADERS) $(SOURCES) ; do echo "/*** $${each} ***/" ; clang-format -style=file $${each} ; echo ; done
