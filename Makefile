@@ -7,7 +7,7 @@ CXXFLAGS = -std=c++20 $(shell pkg-config --cflags opencv4)
 LIBS    = $(shell pkg-config --libs opencv4) -pthread
 CCTEMPS = *.o *.s *.i *.bc
 REPORTS = StaticAnalyzerReports
-CHECKER = scan-build --use-analyzer=`which $(CXX)` --view -o $(REPORTS)
+# CHECKER = scan-build --use-analyzer=`which $(CXX)` --view -o $(REPORTS)
 
 MODULES = \
 	$(PROGRAM)
@@ -17,9 +17,7 @@ OBJECTS = $(shell for each in `echo $(MODULES)` ; do echo $${each}.o ; done)
 
 HEADERS = \
 
-SCRIPT  = MakefileDiver.sh
-
-.PHONY: all clean test install open zip lint wipe format run
+.PHONY: all clean test install zip wipe format #lint
 
 all: $(TARGET)
 	@:
@@ -45,9 +43,6 @@ test: $(TARGET)
 install: $(TARGET)
 	@if [ ! -e $(INSTDIR) ] ; then echo "mkdir -p $(INSTDIR)" ; mkdir -p $(INSTDIR) ; fi
 	cp -p $(TARGET) $(INSTDIR)
-
-# open: install
-# 	open $(PROGRAM).app
 
 zip: clean wipe
 	(cd ../ ; zip -r ./$(ARCHIVE).zip ./$(ARCHIVE)/)
